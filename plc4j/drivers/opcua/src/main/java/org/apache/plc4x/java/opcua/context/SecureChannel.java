@@ -106,7 +106,6 @@ public class SecureChannel {
     private PascalString policyId;
     private UserTokenType tokenType;
     private PascalString endpoint;
-    private boolean discovery;
     private String username;
     private String password;
     private String certFile;
@@ -141,7 +140,6 @@ public class SecureChannel {
         this.configuration = configuration;
 
         this.endpoint = new PascalString(configuration.getEndpoint());
-        this.discovery = configuration.isDiscovery();
         this.username = configuration.getUsername();
         this.password = configuration.getPassword();
         this.certFile = configuration.getCertDirectory();
@@ -1177,7 +1175,7 @@ public class SecureChannel {
      * @throws PlcRuntimeException - If no endpoint with a compatible policy is found raise and error.
      */
     private void selectEndpoint(CreateSessionResponse sessionResponse) throws PlcRuntimeException {
-        List<String> returnedEndpoints = new LinkedList<String>();
+        List<String> returnedEndpoints = new ArrayList<String>();
 
         // Get a list of the endpoints which match ours.
         Stream<EndpointDescription> filteredEndpoints = Arrays.stream(Arrays.copyOf(sessionResponse.getServerEndpoints(), sessionResponse.getServerEndpoints().length, EndpointDescription[].class))
