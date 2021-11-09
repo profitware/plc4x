@@ -90,7 +90,7 @@
             [simple          PascalByteString   'receiverCertificateThumbprint']
             [simple          int 32             'sequenceNumber']
             [simple          int 32             'requestId']
-            [array           int 8              'message' count 'messageSize - (endpoint.stringLength == -1 ? 0 : endpoint.stringLength ) - (senderCertificate.stringLength == -1 ? 0 : senderCertificate.stringLength) - (receiverCertificateThumbprint.stringLength == -1 ? 0 : receiverCertificateThumbprint.stringLength) - 32']
+            [array           byte               'message' count 'messageSize - (endpoint.stringLength == -1 ? 0 : endpoint.stringLength ) - (senderCertificate.stringLength == -1 ? 0 : senderCertificate.stringLength) - (receiverCertificateThumbprint.stringLength == -1 ? 0 : receiverCertificateThumbprint.stringLength) - 32']
        ]
        ['OPN','true'     OpcuaOpenResponse
            [simple          string '8'         'chunk']
@@ -101,7 +101,7 @@
            [simple          PascalByteString   'receiverCertificateThumbprint']
            [simple          int 32             'sequenceNumber']
            [simple          int 32             'requestId']
-           [array           int 8              'message' count 'messageSize - (securityPolicyUri.stringLength == -1 ? 0 : securityPolicyUri.stringLength) - (senderCertificate.stringLength == -1 ? 0 : senderCertificate.stringLength) - (receiverCertificateThumbprint.stringLength == -1 ? 0 : receiverCertificateThumbprint.stringLength) - 32']
+           [array           byte               'message' count 'messageSize - (securityPolicyUri.stringLength == -1 ? 0 : securityPolicyUri.stringLength) - (senderCertificate.stringLength == -1 ? 0 : senderCertificate.stringLength) - (receiverCertificateThumbprint.stringLength == -1 ? 0 : receiverCertificateThumbprint.stringLength) - 32']
        ]
        ['CLO','false'     OpcuaCloseRequest
            [simple          string '8'         'chunk']
@@ -119,7 +119,7 @@
            [simple          int 32             'secureTokenId']
            [simple          int 32             'sequenceNumber']
            [simple          int 32             'requestId']
-           [array           int 8              'message' count 'messageSize - 24']
+           [array           byte               'message' count 'messageSize - 24']
        ]
        ['MSG','true'     OpcuaMessageResponse
            [simple          string '8'         'chunk']
@@ -128,14 +128,14 @@
            [simple          int 32             'secureTokenId']
            [simple          int 32             'sequenceNumber']
            [simple          int 32             'requestId']
-           [array           int 8              'message' count 'messageSize - 24']
+           [array           byte               'message' count 'messageSize - 24']
        ]
     ]
 ]
 
 [type 'ByteStringArray'
     [simple int 32 'arrayLength']
-    [array uint 8 'value' count 'arrayLength']
+    [array byte 'value' count 'arrayLength']
 ]
 
 [type 'GuidValue'

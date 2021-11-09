@@ -174,7 +174,8 @@ public class SecureChannel {
             this.endpoints.add(address.getHostName());
             this.endpoints.add(address.getCanonicalHostName());
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            LOGGER.warn("Unable to resolve host name. Using original host from connection string which may cause issues connecting to server");
+            this.endpoints.add(this.configuration.getHost());
         }
     }
 
@@ -261,14 +262,13 @@ public class SecureChannel {
             DEFAULT_MAX_MESSAGE_SIZE,
             DEFAULT_MAX_CHUNK_COUNT,
             this.endpoint);
-        System.out.print(hello.toString());
+
         Consumer<Integer> requestConsumer = t -> {
             context.sendRequest(new OpcuaAPU(hello))
                 .expectResponse(OpcuaAPU.class, REQUEST_TIMEOUT)
                 .check(p -> p.getMessage() instanceof OpcuaAcknowledgeResponse)
                 .unwrap(p -> (OpcuaAcknowledgeResponse) p.getMessage())
                 .handle(opcuaAcknowledgeResponse -> {
-                    System.out.print(opcuaAcknowledgeResponse.toString());
                     sendBufferSize = Math.min(opcuaAcknowledgeResponse.getReceiveBufferSize(), DEFAULT_SEND_BUFFER_SIZE);
                     maxMessageSize = Math.min(opcuaAcknowledgeResponse.getMaxMessageSize(), DEFAULT_MAX_MESSAGE_SIZE);
                     onConnectOpenSecureChannel(context, opcuaAcknowledgeResponse);

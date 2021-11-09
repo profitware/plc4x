@@ -425,7 +425,7 @@ public class OpcuaProtocolLogic extends Plc4xProtocolBase<OpcuaAPU> implements H
                     ByteStringArray[] array = ((VariantByteString) variant).getValue();
                     for (int k = 0; k < array.length; k++) {
                         int length = array[k].getValue().length;
-                        Short[] tmpValue = new Short[length];
+                        Byte[] tmpValue = new Byte[length];
                         for (int i = 0; i < length; i++) {
                             tmpValue[i] = array[k].getValue()[i];
                         }
